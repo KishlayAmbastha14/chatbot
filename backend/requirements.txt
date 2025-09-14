@@ -1,0 +1,28 @@
+langchain-core
+langchain-community
+python-dotenv
+langchain-groq
+langchain
+faiss-cpu
+pydantic
+fastapi
+uvicorn 
+langchain_google_genai
+google-generativeai
+
+
+
+## modles
+# langchain-groq
+# langchain-huggingface
+# sentence-transformers
+# transformers
+
+# langchain-text-splitters
+
+# # VECTORSTORE DB
+# chromadb  # OR langchain_chroma
+# langchain_chroma
+# faiss-cpu
+# streamlit
+# langchain_core
