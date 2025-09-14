@@ -21,10 +21,11 @@ from typing import Optional
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import uuid
+import os
 
+google_api_key = os.getenv("GOOGLE_API_KEY")
 
-
-llm = ChatGoogleGenerativeAI(model="gemini-2.5-pro")
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-pro",api_key=google_api_key)
 
 prompts = ChatPromptTemplate.from_messages([
     SystemMessagePromptTemplate.from_template("""You are a friendly Indian tourism expert for a Smart India Hackathon (SIH) project.  
