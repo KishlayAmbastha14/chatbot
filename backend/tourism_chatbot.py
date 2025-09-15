@@ -25,6 +25,7 @@ import json
 import os
 import tempfile
 
+# GOOGLE_APPLICATION_CREDENTIALS_JSON
 def setup_google_credentials():
     creds_json = os.getenv("GOOGLE_APPLICATION_CREDENTIALS_JSON")
     if not creds_json:
