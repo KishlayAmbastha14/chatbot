@@ -21,11 +21,29 @@ from typing import Optional
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import uuid
+import json
 import os
+import tempfile
 
-google_api_key = os.getenv("GOOGLE_API_KEY")
+def setup_google_credentials():
+    creds_json = os.getenv("GOOGLE_APPLICATION_CREDENTIALS_JSON")
+    if not creds_json:
+        raise RuntimeError("❌ GOOGLE_APPLICATION_CREDENTIALS_JSON not set!")
 
-llm = ChatGoogleGenerativeAI(model="gemini-2.5-pro",api_key=google_api_key)
+    # Cross-platform temp file location
+    temp_dir = tempfile.gettempdir()  
+    temp_path = os.path.join(temp_dir, "adc.json")
+
+    with open(temp_path, "w") as f:
+        f.write(creds_json)
+
+    # Tell Google SDK to use this file
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = temp_path
+
+setup_google_credentials()
+# google_api_key = os.getenv("GOOGLE_API_KEY")
+
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-pro")
 
 prompts = ChatPromptTemplate.from_messages([
     SystemMessagePromptTemplate.from_template("""You are a friendly Indian tourism expert for a Smart India Hackathon (SIH) project.  
