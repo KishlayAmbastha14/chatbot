@@ -8,7 +8,9 @@
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background: linear-gradient(135deg, #ff9966, #0078ff);
+      /* background: linear-gradient(135deg, #ff9966, #0078ff); */
+      background: linear-gradient(140deg, #FF9933, #FFFFFF, #138808);
+      /* background: linear-gradient(to bottom, #FF9933 33%, #FFFFFF 33%, #FFFFFF 66%, #138808 66%); */
       color: white;
       border: none;
       border-radius: 50%;
@@ -77,6 +79,13 @@
       max-width: 80%;
       word-wrap: break-word;
       animation: fadeIn 0.3s ease;
+    }
+
+    .msg.error {
+      background: #ffcccc; /* light red */
+      color: #a70000;      /* dark red text */
+      border: 1px solid #a70000;
+      font-style: italic;
     }
     /* Messages bubbles */
    .traveler {
