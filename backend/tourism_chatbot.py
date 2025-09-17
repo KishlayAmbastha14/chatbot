@@ -47,12 +47,17 @@ from google.oauth2 import service_account
 # google_api_key = os.getenv("GOOGLE_API_KEY")
 
 
-service_account_info = json.loads(os.environ["GOOGLE_APPLICATION_CREDENTIALS_JSON"])
+import base64
+from google.oauth2 import service_account
+
+
+# Decode the JSON from Base64
+service_account_info = json.loads(base64.b64decode(os.environ["GOOGLE_APPLICATION_CREDENTIALS_BASE64"]))
 credentials = service_account.Credentials.from_service_account_info(service_account_info)
 
+# Pass credentials to the model
 llm = ChatGoogleGenerativeAI(model="gemini-2.5-pro", credentials=credentials)
 
-llm = ChatGoogleGenerativeAI(model="gemini-2.5-pro")
 
 prompts = ChatPromptTemplate.from_messages([
     SystemMessagePromptTemplate.from_template("""You are a friendly Indian tourism expert for a Smart India Hackathon (SIH) project.  
