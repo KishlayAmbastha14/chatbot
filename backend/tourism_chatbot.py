@@ -24,25 +24,33 @@ import uuid
 import json
 import os
 import tempfile
+from google.oauth2 import service_account
+
 
 # GOOGLE_APPLICATION_CREDENTIALS_JSON
-def setup_google_credentials():
-    creds_json = os.getenv("GOOGLE_APPLICATION_CREDENTIALS_JSON")
-    if not creds_json:
-        raise RuntimeError("❌ GOOGLE_APPLICATION_CREDENTIALS_JSON not set!")
+# def setup_google_credentials():
+#     creds_json = os.getenv("GOOGLE_APPLICATION_CREDENTIALS_JSON")
+#     if not creds_json:
+#         raise RuntimeError("❌ GOOGLE_APPLICATION_CREDENTIALS_JSON not set!")
 
-    # Cross-platform temp file location
-    temp_dir = tempfile.gettempdir()  
-    temp_path = os.path.join(temp_dir, "adc.json")
+#     # Cross-platform temp file location
+#     temp_dir = tempfile.gettempdir()  
+#     temp_path = os.path.join(temp_dir, "adc.json")
 
-    with open(temp_path, "w") as f:
-        f.write(creds_json)
+#     with open(temp_path, "w") as f:
+#         f.write(creds_json)
 
-    # Tell Google SDK to use this file
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = temp_path
+#     # Tell Google SDK to use this file
+#     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = temp_path
 
-setup_google_credentials()
+# setup_google_credentials()
 # google_api_key = os.getenv("GOOGLE_API_KEY")
+
+
+service_account_info = json.loads(os.environ["GOOGLE_APPLICATION_CREDENTIALS_JSON"])
+credentials = service_account.Credentials.from_service_account_info(service_account_info)
+
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-pro", credentials=credentials)
 
 llm = ChatGoogleGenerativeAI(model="gemini-2.5-pro")
 
